@@ -1,13 +1,83 @@
-
-
-# Code from https://stackoverflow.com/a/25226267/2943238 Emanuele Paolini
-
 import os
 import json
 import pprint
+import re
+import requests
+import settings
 
 all_exts = []
 all_exts_size = []
+
+
+def convert(name):
+    s1 = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', name)
+    return 'l.' + re.sub('([a-z0-9])([A-Z])', r'\1_\2', s1).lower().replace(' ', '_')
+
+
+# tags is a dict, must have 'dataset_name'
+def save_dataset(tags):
+    extras = []
+    tags_cleaned = {}
+    description = ''
+
+    for key, value in tags.items():
+        # print('converting', key, convert(key), value)
+        if value:
+            extras.append({
+                'key': convert(key),
+                'value': value
+            })
+            tags_cleaned[convert(key)] = value
+
+    for description_key in settings.description_keys:
+        if description_key in tags_cleaned:
+            description += '\n\n' + tags_cleaned[description_key]
+    description = description.strip()
+
+    dataset_dict = {
+        'name': re.sub(
+            r'[^\x61-\x7A]|\x40|\x55|\x137', r'',
+            tags_cleaned['l.dataset_name'].lower()
+        ),
+        'owner_org': settings.ckan_org_name,
+
+        "license_title": None,
+        "maintainer": None,
+        "private": False,
+        "maintainer_email": None,
+        "num_tags": 0,
+        "author": None,
+        "author_email": None,
+        "state": "active",
+        "version": None,
+        "type": "dataset",
+        "resources": [
+        ],
+        "num_resources": 0,
+        # "tags": [tags],
+        "groups": [
+        ],
+        "license_id": None,
+        "isopen": None,
+        "url": None,
+        "notes": description,
+        "extras": extras,
+        "title": tags_cleaned['l.dataset_name'],
+    }
+
+    print(json.dumps(dataset_dict))
+    # Make the HTTP request.
+    response = requests.post(
+        settings.ckan_url + '/api/action/package_create',
+        headers={
+            'Authorization': settings.ckan_api_key,
+            'content-type': 'application/json'
+        },
+        data=json.dumps(dataset_dict))
+    print(response.status_code)
+    print(response.reason)
+    # print(response.content)
+    print(response.text)
 
 def print_file(path):
 
@@ -48,10 +118,13 @@ def json_to_keyvalue(path):
             if json_blob[key] and not isinstance(json_blob[key], dict):
                 data[key] = json_blob[key]
 
+    data['dataset_name'] = name_without_ext
     print(pprint.pformat(data))
+    save_dataset(data)
     return data
 
 
+# Original crawling code from https://stackoverflow.com/a/25226267/2943238 Emanuele Paolini
 def path_to_dict(path):
     d = {'name': os.path.basename(path)}
     if os.path.isdir(path):
