@@ -9,9 +9,13 @@ all_exts = []
 all_exts_size = []
 
 
-def convert(name):
+def convert(name, pre='bids_', post=''):
     s1 = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', name)
-    return 'l.' + re.sub('([a-z0-9])([A-Z])', r'\1_\2', s1).lower().replace(' ', '_')
+    return '{}{}{}'.format(
+        pre,
+        re.sub('([a-z0-9])([A-Z])', r'\1_\2', s1).lower().replace(' ', '_'),
+        post
+    )
 
 
 # tags is a dict, must have 'dataset_name'
@@ -37,7 +41,7 @@ def save_dataset(tags):
     dataset_dict = {
         'name': re.sub(
             r'[^\x61-\x7A]|\x40|\x55|\x137', r'',
-            tags_cleaned['l.dataset_name'].lower()
+            tags_cleaned['bids_dataset_name'].lower()
         ),
         'owner_org': settings.ckan_org_name,
 
@@ -62,9 +66,10 @@ def save_dataset(tags):
         "url": None,
         "notes": description,
         "extras": extras,
-        "title": tags_cleaned['l.dataset_name'],
+        "title": tags_cleaned['bids_dataset_name'],
     }
 
+    dataset_name = ''
     print(json.dumps(dataset_dict))
     # Make the HTTP request.
     response = requests.post(
@@ -76,8 +81,70 @@ def save_dataset(tags):
         data=json.dumps(dataset_dict))
     print(response.status_code)
     print(response.reason)
-    # print(response.content)
     print(response.text)
+
+    response_obj = response.json()
+    if response_obj['success']:
+        dataset_name = response_obj['result']['name']
+    else:
+        if response.reason == 'Conflict':
+            print("\n\nConflict Error, will update instead\n\n")
+
+            response2 = requests.post(
+                settings.ckan_url + '/api/action/package_update',
+                headers={
+                    'Authorization': settings.ckan_api_key,
+                    'content-type': 'application/json'
+                },
+                data=json.dumps(dataset_dict))
+
+            print(response2.status_code)
+            print(response2.reason)
+            print(response2.text)
+            response_obj2 = response2.json()
+            dataset_name = response_obj2['result']['name']
+    add_resource(
+        'Source - zip',
+        dataset_name,
+        '/home/ianh/cubric/lorenzo/sub-meguk0354/meg/sub-meguk0354_task-resteyesopen_meg.json.zip',
+        '',
+        "application/zip"
+    )
+
+    add_resource(
+        'Source - json',
+        dataset_name,
+        '/home/ianh/cubric/lorenzo/sub-meguk0354/meg/sub-meguk0354_task-resteyesopen_meg.json',
+        '',
+        "application/json"
+    )
+
+
+def add_resource(resource_name, dataset_name, filepath, url, mimetype):
+    data = {
+        "package_id": dataset_name,
+        # "url": url,
+        "name": resource_name,
+        # "format": "text/html"
+        "mimetype": mimetype
+    }
+    print('\n\n', data, '\n\n')
+
+    response = requests.post(
+        settings.ckan_url + '/api/action/resource_create',
+        data=data,
+        headers={
+            "X-CKAN-API-Key": settings.ckan_api_key,
+            # 'content-type': 'multipart/form-data'
+        },
+        files=[('upload', open(filepath, 'rb'))]
+    )
+
+    print(response.status_code)
+    print(response.reason)
+    print(response.text)
+    response_obj = response.json()
+
 
 def print_file(path):
 
@@ -153,14 +220,14 @@ def path_to_dict(path):
 
 dir_struc = path_to_dict('/home/ianh/cubric/lorenzo/sub-meguk0354')
 
-
-print(pprint.pformat(
-    dir_struc
-))
-
-print()
-print(all_exts)
-print(len(all_exts))
+#
+# print(pprint.pformat(
+#     dir_struc
+# ))
+#
+# print()
+# print(all_exts)
+# print(len(all_exts))
 
 with open('dir_struc.json', 'w') as struc_file:
     struc_file.write(json.dumps(dir_struc, indent=4))
