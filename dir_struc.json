@@ -1,0 +1,210 @@
+{
+    "type": "directory",
+    "name": "sub-meguk0354",
+    "children": [
+        {
+            "type": "directory",
+            "name": "anat",
+            "children": [
+                {
+                    "size": 6087846,
+                    "type": "file",
+                    "ext": "nii.gz",
+                    "name": "sub-meguk0354_T1w.nii.gz"
+                }
+            ]
+        },
+        {
+            "type": "directory",
+            "name": "meg",
+            "children": [
+                {
+                    "type": "directory",
+                    "name": "sub-meguk0354_task-resteyesopen.ds",
+                    "children": [
+                        {
+                            "size": 826,
+                            "type": "file",
+                            "ext": "hc",
+                            "name": "sub-meguk0354_task-resteyesopen.hc"
+                        },
+                        {
+                            "size": 2654,
+                            "type": "file",
+                            "ext": "infods",
+                            "name": "sub-meguk0354_task-resteyesopen.infods"
+                        },
+                        {
+                            "type": "directory",
+                            "name": "hz.ds",
+                            "children": [
+                                {
+                                    "size": 3113049,
+                                    "type": "file",
+                                    "ext": "res4",
+                                    "name": "hz.res4"
+                                },
+                                {
+                                    "size": 234,
+                                    "type": "file",
+                                    "ext": "newds",
+                                    "name": "hz.newds"
+                                },
+                                {
+                                    "size": 0,
+                                    "type": "file",
+                                    "ext": "",
+                                    "name": "BadChannels"
+                                },
+                                {
+                                    "size": 66,
+                                    "type": "file",
+                                    "ext": "hc",
+                                    "name": "hz.hc"
+                                },
+                                {
+                                    "size": 470,
+                                    "type": "file",
+                                    "ext": "dsc",
+                                    "name": "params.dsc"
+                                },
+                                {
+                                    "size": 2527,
+                                    "type": "file",
+                                    "ext": "infods",
+                                    "name": "hz.infods"
+                                },
+                                {
+                                    "size": 0,
+                                    "type": "file",
+                                    "ext": "segments",
+                                    "name": "bad.segments"
+                                },
+                                {
+                                    "size": 1185,
+                                    "type": "file",
+                                    "ext": "cfg",
+                                    "name": "processing.cfg"
+                                },
+                                {
+                                    "size": 36089,
+                                    "type": "file",
+                                    "ext": "acq",
+                                    "name": "hz.acq"
+                                },
+                                {
+                                    "size": 1079048,
+                                    "type": "file",
+                                    "ext": "meg4",
+                                    "name": "hz.meg4"
+                                },
+                                {
+                                    "size": 336,
+                                    "type": "file",
+                                    "ext": "cls",
+                                    "name": "ClassFile.cls"
+                                }
+                            ]
+                        },
+                        {
+                            "size": 0,
+                            "type": "file",
+                            "ext": "",
+                            "name": "BadChannels"
+                        },
+                        {
+                            "size": 2654,
+                            "type": "file",
+                            "ext": "infods.bak",
+                            "name": "sub-meguk0354_task-resteyesopen.infods.bak"
+                        },
+                        {
+                            "size": 469,
+                            "type": "file",
+                            "ext": "dsc",
+                            "name": "params.dsc"
+                        },
+                        {
+                            "size": 3329305,
+                            "type": "file",
+                            "ext": "res4",
+                            "name": "sub-meguk0354_task-resteyesopen.res4"
+                        },
+                        {
+                            "size": 0,
+                            "type": "file",
+                            "ext": "segments",
+                            "name": "bad.segments"
+                        },
+                        {
+                            "size": 61239,
+                            "type": "file",
+                            "ext": "acq",
+                            "name": "sub-meguk0354_task-resteyesopen.acq"
+                        },
+                        {
+                            "size": 1201,
+                            "type": "file",
+                            "ext": "cfg",
+                            "name": "processing.cfg"
+                        },
+                        {
+                            "size": 584136008,
+                            "type": "file",
+                            "ext": "meg4",
+                            "name": "sub-meguk0354_task-resteyesopen.meg4"
+                        },
+                        {
+                            "size": 566,
+                            "type": "file",
+                            "ext": "mrk",
+                            "name": "MarkerFile.mrk"
+                        },
+                        {
+                            "size": 330,
+                            "type": "file",
+                            "ext": "cls",
+                            "name": "ClassFile.cls"
+                        },
+                        {
+                            "size": 357,
+                            "type": "file",
+                            "ext": "newds",
+                            "name": "sub-meguk0354_task-resteyesopen.newds"
+                        }
+                    ]
+                },
+                {
+                    "size": 1239,
+                    "type": "file",
+                    "ext": "json",
+                    "name": "sub-meguk0354_task-resteyesopen_meg.json"
+                },
+                {
+                    "size": 799,
+                    "type": "file",
+                    "ext": "json",
+                    "name": "sub-meguk0354_fid.json"
+                },
+                {
+                    "size": 855,
+                    "type": "file",
+                    "ext": "json.zip",
+                    "name": "sub-meguk0354_task-resteyesopen_meg.json.zip"
+                },
+                {
+                    "size": 17271,
+                    "type": "file",
+                    "ext": "pos",
+                    "name": "sub-meguk0354_headshape.pos"
+                },
+                {
+                    "size": 315,
+                    "type": "file",
+                    "ext": "txt",
+                    "name": "sub-meguk0354_fidinfo.txt"
+                }
+            ]
+        }
+    ]
+}
