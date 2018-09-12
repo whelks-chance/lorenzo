@@ -12,6 +12,7 @@ from extract_bid_filename_data import extract_bids_filename_data
 class CKANbidsImport:
     def __init__(self):
         self.ds_dirs = []
+        self.subject_files = []
         self.errors = []
         self.all_exts = []
         self.all_exts_size = []
@@ -232,6 +233,7 @@ class CKANbidsImport:
             if d['name'].startswith('sub') and d['name'].endswith('.ds'):
                 print('\n\nDS folder', d, '\n\n')
                 self.ds_dirs.append(d)
+
         else:
             d['type'] = "file"
             d['ext'] = '.'.join(d['name'].split('.')[1:])
@@ -242,10 +244,9 @@ class CKANbidsImport:
                 'path': str(path)
             })
 
-            # if int(d['size']) < 2000:
-            #     print('\n', path)
-            #     print(d['size'])
-            #     print_file(path)
+            if d['name'].startswith('sub'):
+                d['full_path'] = path
+                self.subject_files.append(d)
 
         filename_metadata = extract_bids_filename_data(d['name'])
         self.file_data[path] = filename_metadata
@@ -288,8 +289,17 @@ if __name__ == '__main__':
                 with open(output_file, 'w') as ds_struc_file:
                     ds_struc_file.write(json.dumps(ds_dir, indent=4))
 
+            output_file = os.path.join('./json', '{}-subjects.json'.format(ds))
+            with open(output_file, 'w') as subject_files_file:
+                subject_files_file.write(json.dumps(cbi.subject_files, indent=4))
+
             # Reset things for the next dir
             cbi.ds_dirs = []
+            cbi.subject_files = []
 
     with open('errors.log', 'w') as err_file:
-        err_file.write(json.dumps(cbi.errors, indent=4))
+        err_file.write(
+            json.dumps(
+                sorted(cbi.errors),
+                indent=4)
+        )
