@@ -269,9 +269,10 @@ if __name__ == '__main__':
         pass
 
     for ds in os.listdir(path):
-        if ds.startswith('sub'):
+        dir_path = os.path.join(path, ds)
+        if ds.startswith('sub') and os.path.isdir(dir_path):
 
-            dir_struc = cbi.path_to_dict(os.path.join(path, ds))
+            dir_struc = cbi.path_to_dict(dir_path)
 
             cbi.print_all(dir_struc)
             output_file = os.path.join('./json', '{}.json'.format(ds))
