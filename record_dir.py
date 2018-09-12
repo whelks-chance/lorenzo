@@ -3,13 +3,17 @@ import json
 import pprint
 import re
 import requests
+import sys
+
 import settings
+from extract_bid_filename_data import extract_bids_filename_data
 
 
 class CKANbidsImport:
     def __init__(self):
         self.all_exts = []
         self.all_exts_size = []
+        self.file_data = {}
 
     def print_all(self, dir_struc):
 
@@ -20,6 +24,9 @@ class CKANbidsImport:
         print()
         print(self.all_exts)
         print(len(self.all_exts))
+
+        print()
+        print(self.file_data)
 
     def convert(self, name, pre='bids_', post=''):
         s1 = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', name)
@@ -157,14 +164,12 @@ class CKANbidsImport:
         print(response.text)
         response_obj = response.json()
 
-
     def print_file(self, path):
 
         with open(path,  'r') as file_handle:
             print(file_handle.read())
 
-
-    def json_to_keyvalue(self, path):
+    def json_to_keyvalue(self, path, save=False):
         print('JSON', path)
 
         data = {
@@ -199,9 +204,9 @@ class CKANbidsImport:
 
         data['dataset_name'] = name_without_ext
         print(pprint.pformat(data))
-        self.save_dataset(data)
+        if save:
+            self.save_dataset(data)
         return data
-
 
     # Original crawling code from https://stackoverflow.com/a/25226267/2943238 Emanuele Paolini
     def path_to_dict(self, path):
@@ -224,17 +229,29 @@ class CKANbidsImport:
             #     print(d['size'])
             #     print_file(path)
 
+            print(d['name'])
+
+            self.file_data[path] = extract_bids_filename_data(d['name'])
+
             if 'sub' in d['name'] and 'task' in d['name'] and d['ext'].endswith('json'):
                 self.json_to_keyvalue(path)
 
         return d
 
 
-cbi = CKANbidsImport()
+if __name__ == '__main__':
+    print(sys.argv)
 
-dir_struc = cbi.path_to_dict('/home/ianh/cubric/lorenzo/sub-meguk0354')
+    cbi = CKANbidsImport()
 
-cbi.print_all(dir_struc)
+    path = '/home/ianh/cubric/lorenzo/sub-meguk0354'
 
-with open('dir_struc.json', 'w') as struc_file:
-    struc_file.write(json.dumps(dir_struc, indent=4))
+    if len(sys.argv) > 1:
+        path = sys.argv[1]
+
+    dir_struc = cbi.path_to_dict(path)
+
+    cbi.print_all(dir_struc)
+
+    with open('dir_struc.json', 'w') as struc_file:
+        struc_file.write(json.dumps(dir_struc, indent=4))
