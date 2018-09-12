@@ -213,7 +213,18 @@ class CKANbidsImport:
         d = {'name': os.path.basename(path)}
         if os.path.isdir(path):
             d['type'] = "directory"
-            d['children'] = [self.path_to_dict(os.path.join(path,x)) for x in os.listdir(path)]
+
+            files_in_dir = []
+            for x in os.listdir(path):
+                files_in_dir.append(x)
+
+            children = []
+            for y in files_in_dir:
+                joined_path = os.path.join(path, y)
+                d = self.path_to_dict(joined_path)
+                children.append(d)
+
+            d['children'] = children
         else:
             d['type'] = "file"
             d['ext'] = '.'.join(d['name'].split('.')[1:])
