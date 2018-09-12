@@ -229,24 +229,6 @@ class CKANbidsImport:
 
             d['children'] = [self.path_to_dict(os.path.join(path,x)) for x in os.listdir(path)]
 
-            # files_in_dir = []
-            #
-            # for x in os.listdir(path):
-            #     files_in_dir.append(x)
-            # 
-            # print('files_in_dir', files_in_dir)
-
-            # children = []
-            # for y in files_in_dir:
-            #     joined_path = os.path.join(path, y)
-            #     try:
-            #         d = self.path_to_dict(joined_path)
-            #         children.append(d)
-            #     except Exception as e1:
-            #         self.errors.append(str(e1))
-            #
-            # d['children'] = children
-        else:
             d['type'] = "file"
             d['ext'] = '.'.join(d['name'].split('.')[1:])
             d['size'] = str(os.path.getsize(path))
@@ -281,9 +263,18 @@ if __name__ == '__main__':
     if len(sys.argv) > 1:
         path = sys.argv[1]
 
-    dir_struc = cbi.path_to_dict(path)
+    try:
+        os.mkdir('json')
+    except:
+        pass
 
-    cbi.print_all(dir_struc)
+    for ds in os.listdir(path):
+        if ds.startswith('sub'):
 
-    with open('dir_struc.json', 'w') as struc_file:
-        struc_file.write(json.dumps(dir_struc, indent=4))
+            dir_struc = cbi.path_to_dict(os.path.join(path, ds))
+
+            cbi.print_all(dir_struc)
+            output_file = os.path.join('./json', '{}.json'.format(ds))
+
+            with open(output_file, 'w') as struc_file:
+                struc_file.write(json.dumps(dir_struc, indent=4))
