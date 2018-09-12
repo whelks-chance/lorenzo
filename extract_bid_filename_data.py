@@ -6,7 +6,7 @@ def extract_bids_filename_data(filename):
     :return: The key/value pairs extracted from the filename
     """
     data = {
-        '_filename': filename
+        '_filename': str(filename)
     }
     if filename.count('.') > 1:
         # Handle the case where a file as an extra extension, e.g. .bak,  by removing it
@@ -14,7 +14,7 @@ def extract_bids_filename_data(filename):
         filename = filename[:-reverse_index_of_last_dot]
     if '.' in filename:
         base_filename, extension = filename.split('.')
-        data['_extension'] = extension
+        data['_extension'] = str(extension)
         key_value_pairs = base_filename.split('_')
         for pair in key_value_pairs:
             if '-' in pair:
@@ -24,5 +24,5 @@ def extract_bids_filename_data(filename):
                 # If there's no - in the pair this might be a simple filename, e.g. ClassFile.cls
                 if len(key_value_pairs) > 1:
                     # There is only a postfix when the filename contains at least one key/value pair
-                    data['_postfix'] = pair
+                    data['_postfix'] = str(pair)
     return data

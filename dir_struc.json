@@ -1,756 +1,215 @@
 {
-    "name": "",
+    "name": "sub-meguk0354",
     "children": [
         {
-            "name": "settings_local.py",
-            "ext": "py",
-            "size": 115,
-            "type": "file"
-        },
-        {
-            "name": "dir_struc.txt",
-            "ext": "txt",
-            "size": 8002,
-            "type": "file"
-        },
-        {
-            "name": "dir_struc.json",
-            "ext": "json",
-            "size": 8222,
-            "type": "file"
-        },
-        {
-            "name": ".idea",
+            "name": "anat",
             "children": [
                 {
-                    "name": "workspace.xml",
-                    "ext": "xml",
-                    "size": 48778,
+                    "ext": "nii.gz",
+                    "name": "sub-meguk0354_T1w.nii.gz",
+                    "size": "6087846",
                     "type": "file"
                 },
                 {
-                    "name": "vcs.xml",
-                    "ext": "xml",
-                    "size": 180,
+                    "ext": "nii",
+                    "name": "sub-meguk0354_T1w.nii",
+                    "size": "134218080",
                     "type": "file"
-                },
-                {
-                    "name": "misc.xml",
-                    "ext": "xml",
-                    "size": 216,
-                    "type": "file"
-                },
-                {
-                    "name": "lorenzo.iml",
-                    "ext": "iml",
-                    "size": 398,
-                    "type": "file"
-                },
-                {
-                    "name": "encodings.xml",
-                    "ext": "xml",
-                    "size": 159,
-                    "type": "file"
-                },
-                {
-                    "name": "modules.xml",
-                    "ext": "xml",
-                    "size": 266,
-                    "type": "file"
-                },
-                {
-                    "name": "inspectionProfiles",
-                    "children": [],
-                    "type": "directory"
                 }
             ],
             "type": "directory"
         },
         {
-            "name": "settings.py",
-            "ext": "py",
-            "size": 257,
-            "type": "file"
-        },
-        {
-            "name": "requirements.txt",
-            "ext": "txt",
-            "size": 80,
-            "type": "file"
-        },
-        {
-            "name": "filename.xml",
-            "ext": "xml",
-            "size": 793,
-            "type": "file"
-        },
-        {
-            "name": ".git",
+            "name": "meg",
             "children": [
                 {
-                    "name": "HEAD",
-                    "ext": "",
-                    "size": 23,
-                    "type": "file"
-                },
-                {
-                    "name": "description",
-                    "ext": "",
-                    "size": 73,
-                    "type": "file"
-                },
-                {
-                    "name": "logs",
+                    "name": "sub-meguk0354_task-resteyesopen.ds",
                     "children": [
                         {
-                            "name": "HEAD",
-                            "ext": "",
-                            "size": 1374,
+                            "ext": "hc",
+                            "name": "sub-meguk0354_task-resteyesopen.hc",
+                            "size": "826",
                             "type": "file"
                         },
                         {
-                            "name": "refs",
-                            "children": [
-                                {
-                                    "name": "remotes",
-                                    "children": [
-                                        {
-                                            "name": "origin",
-                                            "children": [
-                                                {
-                                                    "name": "master",
-                                                    "ext": "",
-                                                    "size": 1270,
-                                                    "type": "file"
-                                                }
-                                            ],
-                                            "type": "directory"
-                                        }
-                                    ],
-                                    "type": "directory"
-                                },
-                                {
-                                    "name": "heads",
-                                    "children": [
-                                        {
-                                            "name": "master",
-                                            "ext": "",
-                                            "size": 1374,
-                                            "type": "file"
-                                        }
-                                    ],
-                                    "type": "directory"
-                                }
-                            ],
-                            "type": "directory"
-                        }
-                    ],
-                    "type": "directory"
-                },
-                {
-                    "name": "objects",
-                    "children": [
-                        {
-                            "name": "b3",
-                            "children": [
-                                {
-                                    "name": "bf3c0ff23df3b16c356625e4481bef32acefbb",
-                                    "ext": "",
-                                    "size": 556,
-                                    "type": "file"
-                                }
-                            ],
-                            "type": "directory"
+                            "ext": "infods",
+                            "name": "sub-meguk0354_task-resteyesopen.infods",
+                            "size": "2654",
+                            "type": "file"
                         },
                         {
-                            "name": "a9",
+                            "name": "hz.ds",
                             "children": [
                                 {
-                                    "name": "2785d043485396c6b1d929245001c604535bea",
-                                    "ext": "",
-                                    "size": 85,
-                                    "type": "file"
-                                }
-                            ],
-                            "type": "directory"
-                        },
-                        {
-                            "name": "ea",
-                            "children": [
-                                {
-                                    "name": "854e880b3f470d433cec7d8d6071848b93eed0",
-                                    "ext": "",
-                                    "size": 234,
-                                    "type": "file"
-                                }
-                            ],
-                            "type": "directory"
-                        },
-                        {
-                            "name": "2a",
-                            "children": [
-                                {
-                                    "name": "b5f33437fddb0310524cc866e6f7bc821e7c4a",
-                                    "ext": "",
-                                    "size": 360,
-                                    "type": "file"
-                                }
-                            ],
-                            "type": "directory"
-                        },
-                        {
-                            "name": "81",
-                            "children": [
-                                {
-                                    "name": "2efd2f9f1591a03dff8c48b3504524a3bf6eab",
-                                    "ext": "",
-                                    "size": 185,
-                                    "type": "file"
-                                }
-                            ],
-                            "type": "directory"
-                        },
-                        {
-                            "name": "f0",
-                            "children": [
-                                {
-                                    "name": "7bcc6f6bac698a7373a9e57352646b871b1f2e",
-                                    "ext": "",
-                                    "size": 172,
-                                    "type": "file"
-                                }
-                            ],
-                            "type": "directory"
-                        },
-                        {
-                            "name": "8e",
-                            "children": [
-                                {
-                                    "name": "8cb4c34b9f1fa43d64606b03ce3a68942d461d",
-                                    "ext": "",
-                                    "size": 750,
-                                    "type": "file"
-                                }
-                            ],
-                            "type": "directory"
-                        },
-                        {
-                            "name": "d9",
-                            "children": [
-                                {
-                                    "name": "49614e6460fda328129ccd91520080723afa9c",
-                                    "ext": "",
-                                    "size": 2369,
-                                    "type": "file"
-                                }
-                            ],
-                            "type": "directory"
-                        },
-                        {
-                            "name": "24",
-                            "children": [
-                                {
-                                    "name": "37dd75b29d98b868d73af2ff37e33e5dcc14d8",
-                                    "ext": "",
-                                    "size": 965,
-                                    "type": "file"
-                                }
-                            ],
-                            "type": "directory"
-                        },
-                        {
-                            "name": "46",
-                            "children": [
-                                {
-                                    "name": "64040ebb9b6f8deb053efc9f2b5f79ef5a6c6e",
-                                    "ext": "",
-                                    "size": 164,
-                                    "type": "file"
-                                }
-                            ],
-                            "type": "directory"
-                        },
-                        {
-                            "name": "92",
-                            "children": [
-                                {
-                                    "name": "93b387b8fbc55a312a4ed428553215e66be2b8",
-                                    "ext": "",
-                                    "size": 436,
-                                    "type": "file"
-                                }
-                            ],
-                            "type": "directory"
-                        },
-                        {
-                            "name": "17",
-                            "children": [
-                                {
-                                    "name": "d6071b9ec58d289dfa1b859304ed4f5e49604c",
-                                    "ext": "",
-                                    "size": 100,
-                                    "type": "file"
-                                }
-                            ],
-                            "type": "directory"
-                        },
-                        {
-                            "name": "dc",
-                            "children": [
-                                {
-                                    "name": "2b4ab8a42b5633b8cbb49fd5ffd29918ae49db",
-                                    "ext": "",
-                                    "size": 545,
-                                    "type": "file"
-                                }
-                            ],
-                            "type": "directory"
-                        },
-                        {
-                            "name": "a2",
-                            "children": [
-                                {
-                                    "name": "a4af71b0dc8909b95a158b495bd68cf8539e2c",
-                                    "ext": "",
-                                    "size": 931,
-                                    "type": "file"
-                                }
-                            ],
-                            "type": "directory"
-                        },
-                        {
-                            "name": "04",
-                            "children": [
-                                {
-                                    "name": "8001a00c3993e39620eb570609596f058d91cf",
-                                    "ext": "",
-                                    "size": 235,
+                                    "ext": "res4",
+                                    "name": "hz.res4",
+                                    "size": "3113049",
                                     "type": "file"
                                 },
                                 {
-                                    "name": "d5e9df8b4430352a8777786e93fd6e937fcc1f",
+                                    "ext": "newds",
+                                    "name": "hz.newds",
+                                    "size": "234",
+                                    "type": "file"
+                                },
+                                {
                                     "ext": "",
-                                    "size": 58,
+                                    "name": "BadChannels",
+                                    "size": "0",
+                                    "type": "file"
+                                },
+                                {
+                                    "ext": "hc",
+                                    "name": "hz.hc",
+                                    "size": "66",
+                                    "type": "file"
+                                },
+                                {
+                                    "ext": "dsc",
+                                    "name": "params.dsc",
+                                    "size": "470",
+                                    "type": "file"
+                                },
+                                {
+                                    "ext": "infods",
+                                    "name": "hz.infods",
+                                    "size": "2527",
+                                    "type": "file"
+                                },
+                                {
+                                    "ext": "segments",
+                                    "name": "bad.segments",
+                                    "size": "0",
+                                    "type": "file"
+                                },
+                                {
+                                    "ext": "cfg",
+                                    "name": "processing.cfg",
+                                    "size": "1185",
+                                    "type": "file"
+                                },
+                                {
+                                    "ext": "acq",
+                                    "name": "hz.acq",
+                                    "size": "36089",
+                                    "type": "file"
+                                },
+                                {
+                                    "ext": "meg4",
+                                    "name": "hz.meg4",
+                                    "size": "1079048",
+                                    "type": "file"
+                                },
+                                {
+                                    "ext": "cls",
+                                    "name": "ClassFile.cls",
+                                    "size": "336",
                                     "type": "file"
                                 }
                             ],
                             "type": "directory"
                         },
                         {
-                            "name": "ec",
-                            "children": [
-                                {
-                                    "name": "a426fe346726779ab182398c76c44a5a301d3c",
-                                    "ext": "",
-                                    "size": 1697,
-                                    "type": "file"
-                                }
-                            ],
-                            "type": "directory"
-                        },
-                        {
-                            "name": "35",
-                            "children": [
-                                {
-                                    "name": "151a2adc1e93534f1ed318f189c67cce09013c",
-                                    "ext": "",
-                                    "size": 170,
-                                    "type": "file"
-                                }
-                            ],
-                            "type": "directory"
-                        },
-                        {
-                            "name": "4b",
-                            "children": [
-                                {
-                                    "name": "bf486f7bf07e53575da899e0b65e1dab41aaf3",
-                                    "ext": "",
-                                    "size": 125,
-                                    "type": "file"
-                                }
-                            ],
-                            "type": "directory"
-                        },
-                        {
-                            "name": "4f",
-                            "children": [
-                                {
-                                    "name": "3a630009e1027105173bd14353932bfd0c36c9",
-                                    "ext": "",
-                                    "size": 934,
-                                    "type": "file"
-                                }
-                            ],
-                            "type": "directory"
-                        },
-                        {
-                            "name": "33",
-                            "children": [
-                                {
-                                    "name": "b1509ba71fb25fbe9d0c76a90d004284bc2109",
-                                    "ext": "",
-                                    "size": 202,
-                                    "type": "file"
-                                }
-                            ],
-                            "type": "directory"
-                        },
-                        {
-                            "name": "ab",
-                            "children": [
-                                {
-                                    "name": "d1a99f052a6ac231888f0d43c56422d30c1996",
-                                    "ext": "",
-                                    "size": 135,
-                                    "type": "file"
-                                }
-                            ],
-                            "type": "directory"
-                        },
-                        {
-                            "name": "pack",
-                            "children": [],
-                            "type": "directory"
-                        },
-                        {
-                            "name": "d3",
-                            "children": [
-                                {
-                                    "name": "0201d7ed799e9cd520cace69860a0e0cfb3dc8",
-                                    "ext": "",
-                                    "size": 310,
-                                    "type": "file"
-                                }
-                            ],
-                            "type": "directory"
-                        },
-                        {
-                            "name": "d5",
-                            "children": [
-                                {
-                                    "name": "91ff1c246000605896b85070b670e687068ab9",
-                                    "ext": "",
-                                    "size": 163,
-                                    "type": "file"
-                                }
-                            ],
-                            "type": "directory"
-                        },
-                        {
-                            "name": "6c",
-                            "children": [
-                                {
-                                    "name": "bc69166e82cc96196e01ec9f17ddc40264d5b0",
-                                    "ext": "",
-                                    "size": 164,
-                                    "type": "file"
-                                }
-                            ],
-                            "type": "directory"
-                        },
-                        {
-                            "name": "e6",
-                            "children": [
-                                {
-                                    "name": "9de29bb2d1d6434b8b29ae775ad8c2e48c5391",
-                                    "ext": "",
-                                    "size": 15,
-                                    "type": "file"
-                                }
-                            ],
-                            "type": "directory"
-                        },
-                        {
-                            "name": "65",
-                            "children": [
-                                {
-                                    "name": "1639bfadee46d35f9ab889054f7427db0f40c8",
-                                    "ext": "",
-                                    "size": 191,
-                                    "type": "file"
-                                }
-                            ],
-                            "type": "directory"
-                        },
-                        {
-                            "name": "fa",
-                            "children": [
-                                {
-                                    "name": "2c05cb5ef1363b56898edbba23f9e66a42d67b",
-                                    "ext": "",
-                                    "size": 164,
-                                    "type": "file"
-                                }
-                            ],
-                            "type": "directory"
-                        },
-                        {
-                            "name": "b4",
-                            "children": [
-                                {
-                                    "name": "461874ed56680862ad1ee6ae268569ccc47602",
-                                    "ext": "",
-                                    "size": 88,
-                                    "type": "file"
-                                }
-                            ],
-                            "type": "directory"
-                        },
-                        {
-                            "name": "69",
-                            "children": [
-                                {
-                                    "name": "97de6437ce1d02cb7dcf65b055ed69a6ea19f2",
-                                    "ext": "",
-                                    "size": 2225,
-                                    "type": "file"
-                                }
-                            ],
-                            "type": "directory"
-                        },
-                        {
-                            "name": "8d",
-                            "children": [
-                                {
-                                    "name": "8dbc22b29f19d6c019bde657b4b837bcc27dec",
-                                    "ext": "",
-                                    "size": 178,
-                                    "type": "file"
-                                }
-                            ],
-                            "type": "directory"
-                        },
-                        {
-                            "name": "03",
-                            "children": [
-                                {
-                                    "name": "a109d90e9a7cb9e142c0f86e53bd21b004b953",
-                                    "ext": "",
-                                    "size": 33,
-                                    "type": "file"
-                                }
-                            ],
-                            "type": "directory"
-                        },
-                        {
-                            "name": "info",
-                            "children": [],
-                            "type": "directory"
-                        }
-                    ],
-                    "type": "directory"
-                },
-                {
-                    "name": "refs",
-                    "children": [
-                        {
-                            "name": "remotes",
-                            "children": [
-                                {
-                                    "name": "origin",
-                                    "children": [
-                                        {
-                                            "name": "master",
-                                            "ext": "",
-                                            "size": 41,
-                                            "type": "file"
-                                        }
-                                    ],
-                                    "type": "directory"
-                                }
-                            ],
-                            "type": "directory"
-                        },
-                        {
-                            "name": "heads",
-                            "children": [
-                                {
-                                    "name": "master",
-                                    "ext": "",
-                                    "size": 41,
-                                    "type": "file"
-                                }
-                            ],
-                            "type": "directory"
-                        },
-                        {
-                            "name": "tags",
-                            "children": [],
-                            "type": "directory"
-                        }
-                    ],
-                    "type": "directory"
-                },
-                {
-                    "name": "hooks",
-                    "children": [
-                        {
-                            "name": "commit-msg.sample",
-                            "ext": "sample",
-                            "size": 896,
-                            "type": "file"
-                        },
-                        {
-                            "name": "pre-rebase.sample",
-                            "ext": "sample",
-                            "size": 4898,
-                            "type": "file"
-                        },
-                        {
-                            "name": "post-update.sample",
-                            "ext": "sample",
-                            "size": 189,
-                            "type": "file"
-                        },
-                        {
-                            "name": "applypatch-msg.sample",
-                            "ext": "sample",
-                            "size": 478,
-                            "type": "file"
-                        },
-                        {
-                            "name": "pre-applypatch.sample",
-                            "ext": "sample",
-                            "size": 424,
-                            "type": "file"
-                        },
-                        {
-                            "name": "update.sample",
-                            "ext": "sample",
-                            "size": 3610,
-                            "type": "file"
-                        },
-                        {
-                            "name": "pre-push.sample",
-                            "ext": "sample",
-                            "size": 1348,
-                            "type": "file"
-                        },
-                        {
-                            "name": "pre-commit.sample",
-                            "ext": "sample",
-                            "size": 1642,
-                            "type": "file"
-                        },
-                        {
-                            "name": "prepare-commit-msg.sample",
-                            "ext": "sample",
-                            "size": 1239,
-                            "type": "file"
-                        }
-                    ],
-                    "type": "directory"
-                },
-                {
-                    "name": "config",
-                    "ext": "",
-                    "size": 269,
-                    "type": "file"
-                },
-                {
-                    "name": "index",
-                    "ext": "",
-                    "size": 793,
-                    "type": "file"
-                },
-                {
-                    "name": "branches",
-                    "children": [],
-                    "type": "directory"
-                },
-                {
-                    "name": "ORIG_HEAD",
-                    "ext": "",
-                    "size": 41,
-                    "type": "file"
-                },
-                {
-                    "name": "COMMIT_EDITMSG",
-                    "ext": "",
-                    "size": 22,
-                    "type": "file"
-                },
-                {
-                    "name": "FETCH_HEAD",
-                    "ext": "",
-                    "size": 102,
-                    "type": "file"
-                },
-                {
-                    "name": "info",
-                    "children": [
-                        {
-                            "name": "exclude",
                             "ext": "",
-                            "size": 240,
+                            "name": "BadChannels",
+                            "size": "0",
+                            "type": "file"
+                        },
+                        {
+                            "ext": "infods.bak",
+                            "name": "sub-meguk0354_task-resteyesopen.infods.bak",
+                            "size": "2654",
+                            "type": "file"
+                        },
+                        {
+                            "ext": "dsc",
+                            "name": "params.dsc",
+                            "size": "469",
+                            "type": "file"
+                        },
+                        {
+                            "ext": "res4",
+                            "name": "sub-meguk0354_task-resteyesopen.res4",
+                            "size": "3329305",
+                            "type": "file"
+                        },
+                        {
+                            "ext": "segments",
+                            "name": "bad.segments",
+                            "size": "0",
+                            "type": "file"
+                        },
+                        {
+                            "ext": "acq",
+                            "name": "sub-meguk0354_task-resteyesopen.acq",
+                            "size": "61239",
+                            "type": "file"
+                        },
+                        {
+                            "ext": "cfg",
+                            "name": "processing.cfg",
+                            "size": "1201",
+                            "type": "file"
+                        },
+                        {
+                            "ext": "meg4",
+                            "name": "sub-meguk0354_task-resteyesopen.meg4",
+                            "size": "584136008",
+                            "type": "file"
+                        },
+                        {
+                            "ext": "mrk",
+                            "name": "MarkerFile.mrk",
+                            "size": "566",
+                            "type": "file"
+                        },
+                        {
+                            "ext": "cls",
+                            "name": "ClassFile.cls",
+                            "size": "330",
+                            "type": "file"
+                        },
+                        {
+                            "ext": "newds",
+                            "name": "sub-meguk0354_task-resteyesopen.newds",
+                            "size": "357",
                             "type": "file"
                         }
                     ],
                     "type": "directory"
-                }
-            ],
-            "type": "directory"
-        },
-        {
-            "name": "queueXMLwriter.py",
-            "ext": "py",
-            "size": 1524,
-            "type": "file"
-        },
-        {
-            "name": "README.md",
-            "ext": "md",
-            "size": 93,
-            "type": "file"
-        },
-        {
-            "name": "ds_dir.json",
-            "ext": "json",
-            "size": 3107,
-            "type": "file"
-        },
-        {
-            "name": "FileZilla.xml",
-            "ext": "xml",
-            "size": 798,
-            "type": "file"
-        },
-        {
-            "name": "__pycache__",
-            "children": [
+                },
                 {
-                    "name": "settings_local.cpython-35.pyc",
-                    "ext": "cpython-35.pyc",
-                    "size": 263,
+                    "ext": "json",
+                    "name": "sub-meguk0354_task-resteyesopen_meg.json",
+                    "size": "1239",
                     "type": "file"
                 },
                 {
-                    "name": "settings.cpython-35.pyc",
-                    "ext": "cpython-35.pyc",
-                    "size": 403,
+                    "ext": "json",
+                    "name": "sub-meguk0354_fid.json",
+                    "size": "799",
+                    "type": "file"
+                },
+                {
+                    "ext": "json.zip",
+                    "name": "sub-meguk0354_task-resteyesopen_meg.json.zip",
+                    "size": "855",
+                    "type": "file"
+                },
+                {
+                    "ext": "pos",
+                    "name": "sub-meguk0354_headshape.pos",
+                    "size": "17271",
+                    "type": "file"
+                },
+                {
+                    "ext": "txt",
+                    "name": "sub-meguk0354_fidinfo.txt",
+                    "size": "315",
                     "type": "file"
                 }
             ],
             "type": "directory"
-        },
-        {
-            "name": "record_dir.py",
-            "ext": "py",
-            "size": 7419,
-            "type": "file"
-        },
-        {
-            "name": ".gitignore",
-            "ext": "gitignore",
-            "size": 17,
-            "type": "file"
-        },
-        {
-            "name": "extract_bid_filename_data.py",
-            "ext": "py",
-            "size": 1231,
-            "type": "file"
         }
     ],
     "type": "directory"

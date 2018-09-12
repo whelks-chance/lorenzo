@@ -11,6 +11,7 @@ from extract_bid_filename_data import extract_bids_filename_data
 
 class CKANbidsImport:
     def __init__(self):
+        self.errors = []
         self.all_exts = []
         self.all_exts_size = []
         self.file_data = {}
@@ -27,6 +28,9 @@ class CKANbidsImport:
 
         print()
         print(self.file_data)
+
+        print()
+        print(self.errors)
 
     def convert(self, name, pre='bids_', post=''):
         s1 = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', name)
@@ -211,28 +215,45 @@ class CKANbidsImport:
     # Original crawling code from https://stackoverflow.com/a/25226267/2943238 Emanuele Paolini
     def path_to_dict(self, path):
         d = {'name': os.path.basename(path)}
+        # print('Found : ', d['name'])
+
+        if not os.access(path, os.R_OK):
+            print('Cannot access ', path)
+            return d
+
+        if d['name'].startswith('.') or d['name'].startswith('__'):
+            return d
+
         if os.path.isdir(path):
             d['type'] = "directory"
 
-            files_in_dir = []
-            for x in os.listdir(path):
-                files_in_dir.append(x)
+            d['children'] = [self.path_to_dict(os.path.join(path,x)) for x in os.listdir(path)]
 
-            children = []
-            for y in files_in_dir:
-                joined_path = os.path.join(path, y)
-                d = self.path_to_dict(joined_path)
-                children.append(d)
+            # files_in_dir = []
+            #
+            # for x in os.listdir(path):
+            #     files_in_dir.append(x)
+            # 
+            # print('files_in_dir', files_in_dir)
 
-            d['children'] = children
+            # children = []
+            # for y in files_in_dir:
+            #     joined_path = os.path.join(path, y)
+            #     try:
+            #         d = self.path_to_dict(joined_path)
+            #         children.append(d)
+            #     except Exception as e1:
+            #         self.errors.append(str(e1))
+            #
+            # d['children'] = children
         else:
             d['type'] = "file"
             d['ext'] = '.'.join(d['name'].split('.')[1:])
-            d['size'] = os.path.getsize(path)
+            d['size'] = str(os.path.getsize(path))
             self.all_exts.append(d['ext'])
             self.all_exts_size.append({
-                'size': d['size'],
-                'path': path
+                'size': str(d['size']),
+                'path': str(path)
             })
 
             # if int(d['size']) < 2000:
@@ -244,8 +265,8 @@ class CKANbidsImport:
 
             self.file_data[path] = extract_bids_filename_data(d['name'])
 
-            if 'sub' in d['name'] and 'task' in d['name'] and d['ext'].endswith('json'):
-                self.json_to_keyvalue(path)
+            # if 'sub' in d['name'] and 'task' in d['name'] and d['ext'].endswith('json'):
+            #     self.json_to_keyvalue(path)
 
         return d
 
