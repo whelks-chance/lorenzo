@@ -11,6 +11,7 @@ from extract_bid_filename_data import extract_bids_filename_data
 
 class CKANbidsImport:
     def __init__(self):
+        self.ds_dirs = []
         self.errors = []
         self.all_exts = []
         self.all_exts_size = []
@@ -214,7 +215,6 @@ class CKANbidsImport:
     # Original crawling code from https://stackoverflow.com/a/25226267/2943238 Emanuele Paolini
     def path_to_dict(self, path):
         d = {'name': os.path.basename(path)}
-        # print('Found : ', d['name'])
 
         if not os.access(path, os.R_OK):
             print('Cannot access ', path)
@@ -229,6 +229,9 @@ class CKANbidsImport:
 
             d['children'] = [self.path_to_dict(os.path.join(path,x)) for x in os.listdir(path)]
 
+            if d['name'].startswith('sub') and d['name'].endswith('.ds'):
+                print('\n\nDS folder', d, '\n\n')
+                self.ds_dirs.append(d)
         else:
             d['type'] = "file"
             d['ext'] = '.'.join(d['name'].split('.')[1:])
@@ -252,9 +255,6 @@ class CKANbidsImport:
             #     self.json_to_keyvalue(path)
 
         return d
-
-    def find_ds(self, dir_struc):
-        pass
 
 
 if __name__ == '__main__':
@@ -282,7 +282,14 @@ if __name__ == '__main__':
             with open(output_file, 'w') as struc_file:
                 struc_file.write(json.dumps(dir_struc, indent=4))
 
-            with open('errors.log', 'a') as err_file:
-                err_file.write(json.dumps(cbi.errors, indent=4))
+            for ds_dir in cbi.ds_dirs:
+                output_file = os.path.join('./json', '{}.json'.format(ds_dir['name']))
 
-            find_ds = cbi.find_ds(dir_struc)
+                with open(output_file, 'w') as ds_struc_file:
+                    ds_struc_file.write(json.dumps(ds_dir, indent=4))
+
+            # Reset things for the next dir
+            cbi.ds_dirs = []
+
+    with open('errors.log', 'w') as err_file:
+        err_file.write(json.dumps(cbi.errors, indent=4))
