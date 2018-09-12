@@ -187,7 +187,6 @@ class CKANbidsImport:
 
         name_without_ext = str(os.path.basename(path)).replace('.json', '')
         path_arr = name_without_ext.split('_')
-        print(path_arr)
 
         if path_arr[0].startswith('sub-'):
             data['subject'] = path_arr[0].replace('sub-', '')
@@ -207,7 +206,7 @@ class CKANbidsImport:
                     data[key] = json_blob[key]
 
         data['dataset_name'] = name_without_ext
-        print(pprint.pformat(data))
+        # print(pprint.pformat(data))
         if save:
             self.save_dataset(data)
         return data
@@ -229,6 +228,7 @@ class CKANbidsImport:
 
             d['children'] = [self.path_to_dict(os.path.join(path,x)) for x in os.listdir(path)]
 
+        else:
             d['type'] = "file"
             d['ext'] = '.'.join(d['name'].split('.')[1:])
             d['size'] = str(os.path.getsize(path))
@@ -243,9 +243,10 @@ class CKANbidsImport:
             #     print(d['size'])
             #     print_file(path)
 
-            print(d['name'])
+            filename_metadata = extract_bids_filename_data(d['name'])
 
-            self.file_data[path] = extract_bids_filename_data(d['name'])
+            self.file_data[path] = filename_metadata
+            d['filename_metadata'] = filename_metadata
 
             # if 'sub' in d['name'] and 'task' in d['name'] and d['ext'].endswith('json'):
             #     self.json_to_keyvalue(path)
@@ -254,10 +255,8 @@ class CKANbidsImport:
 
 
 if __name__ == '__main__':
-    print(sys.argv)
 
     cbi = CKANbidsImport()
-
     path = '/home/ianh/cubric/lorenzo/sub-meguk0354'
 
     if len(sys.argv) > 1:
@@ -274,7 +273,7 @@ if __name__ == '__main__':
 
             dir_struc = cbi.path_to_dict(dir_path)
 
-            cbi.print_all(dir_struc)
+            # cbi.print_all(dir_struc)
             output_file = os.path.join('./json', '{}.json'.format(ds))
 
             with open(output_file, 'w') as struc_file:
