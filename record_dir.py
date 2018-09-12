@@ -218,6 +218,7 @@ class CKANbidsImport:
 
         if not os.access(path, os.R_OK):
             print('Cannot access ', path)
+            self.errors.append('Cannot access {}'.format(path))
             return d
 
         if d['name'].startswith('.') or d['name'].startswith('__'):
@@ -243,15 +244,17 @@ class CKANbidsImport:
             #     print(d['size'])
             #     print_file(path)
 
-            filename_metadata = extract_bids_filename_data(d['name'])
-
-            self.file_data[path] = filename_metadata
-            d['filename_metadata'] = filename_metadata
+        filename_metadata = extract_bids_filename_data(d['name'])
+        self.file_data[path] = filename_metadata
+        d['filename_metadata'] = filename_metadata
 
             # if 'sub' in d['name'] and 'task' in d['name'] and d['ext'].endswith('json'):
             #     self.json_to_keyvalue(path)
 
         return d
+
+    def find_ds(self, dir_struc):
+        pass
 
 
 if __name__ == '__main__':
@@ -278,3 +281,8 @@ if __name__ == '__main__':
 
             with open(output_file, 'w') as struc_file:
                 struc_file.write(json.dumps(dir_struc, indent=4))
+
+            with open('errors.log', 'a') as err_file:
+                err_file.write(json.dumps(cbi.errors, indent=4))
+
+            find_ds = cbi.find_ds(dir_struc)
