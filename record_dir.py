@@ -422,9 +422,15 @@ class BidsResource(metaclass=ABCMeta):
             if 'run' in bit:
                 return bit.split('-')[1]
 
-    @abstractmethod
     def get_resource_description(self):
-        raise NotImplementedError
+        return '{}\nSubject: {}\n' \
+               'Meg ext: {}\n' \
+               'Task: {}\n'.format(
+                    self.dataset,
+                    self.get_subject(),
+                    self.get_meg_ext(),
+                    self.get_task()
+                )
 
     @staticmethod
     @abstractmethod
@@ -433,14 +439,6 @@ class BidsResource(metaclass=ABCMeta):
 
 
 class CDFBidsResource(BidsResource):
-
-    def get_resource_description(self):
-        return '{}\nSubject: {}\n' \
-               'Meg ext: {}'.format(
-            self.dataset,
-            self.get_subject(),
-            self.get_meg_ext()
-        )
 
     @staticmethod
     def matches_pattern(filename):
@@ -454,8 +452,6 @@ class CDFBidsResource(BidsResource):
 
 
 class FIFBidsResource(BidsResource):
-    def get_resource_description(self):
-        return '{}\nSubject: {}\n'.format(self.dataset, self.get_subject())
 
     @staticmethod
     def matches_pattern(filename):
@@ -469,8 +465,6 @@ class FIFBidsResource(BidsResource):
 
 
 class GLABidsResource(BidsResource):
-    def get_resource_description(self):
-        return '{}\nSubject: {}\n'.format(self.dataset, self.get_subject())
 
     @staticmethod
     def matches_pattern(filename):
