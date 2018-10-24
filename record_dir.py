@@ -437,8 +437,17 @@ class BidsResource(metaclass=ABCMeta):
     def matches_pattern(filename):
         raise NotImplementedError
 
+    @staticmethod
+    @abstractmethod
+    def name():
+        raise NotImplementedError
+
 
 class CDFBidsResource(BidsResource):
+
+    @staticmethod
+    def name():
+        return 'CDFBidsResource'
 
     @staticmethod
     def matches_pattern(filename):
@@ -454,6 +463,10 @@ class CDFBidsResource(BidsResource):
 class FIFBidsResource(BidsResource):
 
     @staticmethod
+    def name():
+        return 'FIFBidsResource'
+
+    @staticmethod
     def matches_pattern(filename):
         basename = os.path.basename(filename)
         parent_dir = os.path.basename(os.path.dirname(filename))
@@ -465,6 +478,10 @@ class FIFBidsResource(BidsResource):
 
 
 class GLABidsResource(BidsResource):
+
+    @staticmethod
+    def name():
+        return 'GLABidsResource'
 
     @staticmethod
     def matches_pattern(filename):
@@ -479,15 +496,17 @@ class GLABidsResource(BidsResource):
 
 class BidsDataset:
 
-    def __init__(self):
+    def __init__(self, known_dataset_types=None):
 
+        self.sidecar_files = []
         self.dataset_resources = []
         self.dataset_info = {}
         self.root_dir = ''
         self.root_path = ''
+        self.known_dataset_types = [CDFBidsResource, FIFBidsResource, GLABidsResource]
+        if known_dataset_types is not None:
+            self.known_dataset_types = known_dataset_types
 
-    def known_dataset_types(self):
-        return [CDFBidsResource, FIFBidsResource, GLABidsResource]
 
     def get_resources(self):
         return self.dataset_resources
@@ -510,13 +529,36 @@ class BidsDataset:
         description = ''
         for r in self.get_resources():
             description += str(r.get_resource_description()) + '\n'
+
+        description += 'Sidecar files:\n'
+        for s in self.sidecar_files:
+            description += str(s) + '\n'
+
         return description
 
+    def is_inside_dataset(self, path, resource_type):
+        # print('Checking {} is in a resource of type {}'.format(path, resource_type.name()))
+        if os.path.dirname(path) == path:
+            return False
+        else:
+            if resource_type.matches_pattern(path):
+                return True
+            else:
+                return self.is_inside_dataset(os.path.dirname(path), resource_type)
+
     def record_if_dataset(self, path):
-        for t in self.known_dataset_types():
+        is_inside_dataset = False
+        for t in self.known_dataset_types:
             if t.matches_pattern(path):
                 print('Match {}, {}'.format(t, path))
                 self.dataset_resources.append(t(path))
+                return
+            is_inside_dataset = self.is_inside_dataset(path, t)
+            if is_inside_dataset:
+                print('is_inside_dataset', is_inside_dataset)
+                break
+        if not is_inside_dataset and os.path.isfile(path):
+            self.sidecar_files.append(path)
 
 
 if __name__ == '__main__':
