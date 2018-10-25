@@ -47,13 +47,13 @@ class CKANbidsImport:
         )
 
 
-    # tags is a dict, must have 'dataset_name'
-    def save_dataset(self, tags):
+    # extras is a dict, must have 'dataset_name'
+    def save_dataset(self, unclean_extras, tags):
         extras = []
         tags_cleaned = {}
         description = ''
 
-        for key, value in tags.items():
+        for key, value in unclean_extras.items():
             # print('converting', key, convert(key), value)
             if value:
                 extras.append({
@@ -67,11 +67,12 @@ class CKANbidsImport:
                 description += '\n\n' + tags_cleaned[description_key]
         description = description.strip()
 
-        dataset_dict = {
-            'name': re.sub(
+        dataset_name = re.sub(
                 r'[^\x61-\x7A]|\x40|\x55|\x137', r'',
-                tags_cleaned['bids_dataset_name'].lower()
-            ),
+                tags_cleaned['bids_dataset_name'].lower())
+
+        dataset_dict = {
+            'name': dataset_name,
             'owner_org': settings.ckan_org_name,
 
             "license_title": None,
@@ -87,7 +88,7 @@ class CKANbidsImport:
             "resources": [
             ],
             "num_resources": 0,
-            # "tags": [tags],
+            "tags": tags,
             "groups": [
             ],
             "license_id": None,
@@ -148,6 +149,7 @@ class CKANbidsImport:
                 #     '',
                 #     "application/json"
                 # )
+        return dataset_name
 
     def add_resource(self, resource_name, dataset_name, filepath, url, mimetype):
         data = {
@@ -373,6 +375,11 @@ class CKANbidsImport:
                     self.save_dataset(data_dict)
 
 
+class BidsSidecarResource(metaclass=ABCMeta):
+    def __init__(self):
+        pass
+
+
 class BidsResource(metaclass=ABCMeta):
     MEG = 1
     FIF = 2
@@ -494,6 +501,22 @@ class GLABidsResource(BidsResource):
                parent_dir == 'meg'
 
 
+class BidsSidecarJSON(BidsResource):
+
+    @staticmethod
+    def name():
+        return 'BidsSidecarJSON'
+
+    @staticmethod
+    def matches_pattern(filename):
+        basename = os.path.basename(filename)
+        parent_dir = os.path.basename(os.path.dirname(filename))
+        return basename.startswith('sub-') and \
+               '_task-' in basename and \
+               basename.endswith('_meg.json') and \
+               parent_dir == 'meg'
+
+
 class BidsDataset:
 
     def __init__(self, known_dataset_types=None):
@@ -503,10 +526,10 @@ class BidsDataset:
         self.dataset_info = {}
         self.root_dir = ''
         self.root_path = ''
-        self.known_dataset_types = [CDFBidsResource, FIFBidsResource, GLABidsResource]
+        self.known_dataset_types = [CDFBidsResource, FIFBidsResource,
+                                    GLABidsResource, BidsSidecarJSON]
         if known_dataset_types is not None:
             self.known_dataset_types = known_dataset_types
-
 
     def get_resources(self):
         return self.dataset_resources
@@ -637,6 +660,49 @@ if __name__ == '__main__':
         assert isinstance(bd, BidsDataset)
         print('\n***\n')
         print(bd.description())
+
+        new_info = bd.dataset_info
+        new_info['dataset_name'] = bd.dataset_resources[0].get_subject()
+        print(new_info)
+
+        tags = []
+        for r in bd.dataset_resources:
+            assert isinstance(r, BidsResource)
+
+            tags.extend([
+                {
+                    'name': r.get_subject(),
+                    'vocabulary_id:': 'bids_project'
+                },
+                {
+                    'name': r.get_task(),
+                    'vocabulary_id:': 'bids_task'
+                },
+                {
+                    'name': r.get_meg_ext(),
+                    'vocabulary_id:': 'bids_meg_ext'
+                }
+            ])
+        dataset_name = cbi.save_dataset(new_info, tags)
+        if dataset_name:
+            for sf in bd.sidecar_files:
+                cbi.add_resource(
+                    resource_name=os.path.basename(sf),
+                    dataset_name=dataset_name,
+                    filepath=sf,
+                    url='',
+                    mimetype='application/*'
+                )
+
+            for r in bd.dataset_resources:
+                assert isinstance(r, BidsResource)
+                cbi.add_resource(
+                    resource_name=r.basename(),
+                    dataset_name=dataset_name,
+                    filepath=r.dataset,
+                    url='',
+                    mimetype=r.get_meg_ext()
+                )
 
         # cbi.parse_live_json('./json_live')
 
