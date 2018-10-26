@@ -2,12 +2,11 @@ import os
 import json
 import pprint
 import re
-from abc import ABCMeta, abstractmethod
-
 import requests
 import sys
-
 import settings
+from BidsResource.BidsDataset import BidsDataset
+from BidsResource.BidsResource import BidsResource, CDFBidsResource, FIFBidsResource, GLABidsResource
 from extract_bid_filename_data import extract_bids_filename_data
 
 
@@ -237,24 +236,6 @@ class CKANbidsImport:
             self.save_dataset(data)
         return data
 
-    # def is_gla_format(self, filename):
-    #     basename = os.path.basename(filename)
-    #     parent_dir = os.path.basename(os.path.dirname(filename))
-    #     return os.path.isdir(filename) and basename.endswith('_meg') and parent_dir == 'meg'
-    #
-    # def is_fif_dataset(self, filename):
-    #     basename = os.path.basename(filename)
-    #     parent_dir = os.path.basename(os.path.dirname(filename))
-    #     print(basename, '-----', parent_dir)
-    #     return basename.startswith('sub-') and basename.endswith('.fif') and parent_dir == 'meg'
-    #
-    # def is_meg_dataset(self, filename):
-    #     basename = os.path.basename(filename)
-    #     parent_dir = os.path.basename(os.path.dirname(filename))
-    #     return os.path.isdir(filename) and \
-    #            basename.startswith('sub') and \
-    #            basename.endswith('.ds') and \
-    #            parent_dir == 'meg'
 
     # Original crawling code from https://stackoverflow.com/a/25226267/2943238 Emanuele Paolini
     def path_to_dict(self, path):
@@ -271,25 +252,7 @@ class CKANbidsImport:
         if d['name'].startswith('.') or d['name'].startswith('__'):
             return d
 
-        self.current_bids_dataset.record_if_dataset(path)
-        # # print('\nChecking', path, self.is_meg_dataset(path))
-        # if self.is_meg_dataset(path):
-        #     print('Is MEG')
-        #     self.current_bids_dataset.add_meg_dataset(path)
-        #     # print('\n\nDS folder', d, '\n\n')
-        #     self.ds_dirs.append(d)
-        #
-        # if self.is_fif_dataset(path):
-        #     print('Is fif')
-        #     self.current_bids_dataset.add_fif_dataset(path)
-        #     # print('\n\nDS folder', d, '\n\n')
-        #     self.ds_dirs.append(d)
-        #
-        # if self.is_gla_format(path):
-        #     print('Is gla')
-        #     self.current_bids_dataset.add_gla_dataset(path)
-        #     # print('\n\nDS folder', d, '\n\n')
-        #     self.ds_dirs.append(d)
+        self.current_bids_dataset.record_if_dataset(path, d)
 
         if os.path.isdir(path):
             d['type'] = "directory"
@@ -372,133 +335,7 @@ class CKANbidsImport:
 
                     data_dict = self.get_dataset_info(json_blob)
 
-                    self.save_dataset(data_dict)
-
-
-class BidsSidecarResource(metaclass=ABCMeta):
-    def __init__(self):
-        pass
-
-
-class BidsResource(metaclass=ABCMeta):
-    MEG = 1
-    FIF = 2
-    GLA = 3
-
-    def __init__(self, dataset):
-        self.dataset = dataset
-        self.type = type
-
-    def basename(self):
-        return os.path.basename(self.dataset).split('_meg')[0]
-
-    def get_meg_ext(self):
-        idx = os.path.basename(self.dataset).rfind('_meg')
-        return os.path.basename(self.dataset)[idx:]
-
-    def get_subject(self):
-        return self.basename().split('_')[0].split('-')[1]
-
-    def get_task(self):
-        bits = self.basename().split('_')
-        for bit in bits:
-            if 'task' in bit:
-                return bit.split('-')[1]
-
-    def get_session(self):
-        bits = self.basename().split('_')
-        for bit in bits:
-            if 'ses' in bit:
-                return bit.split('-')[1]
-
-    def get_aquisition(self):
-        bits = self.basename().split('_')
-        for bit in bits:
-            if 'acq' in bit:
-                return bit.split('-')[1]
-
-    def get_processed(self):
-        bits = self.basename().split('_')
-        for bit in bits:
-            if 'proc' in bit:
-                return bit.split('-')[1]
-
-    def get_run(self):
-        bits = self.basename().split('_')
-        for bit in bits:
-            if 'run' in bit:
-                return bit.split('-')[1]
-
-    def get_resource_description(self):
-        return '{}\nSubject: {}\n' \
-               'Meg ext: {}\n' \
-               'Task: {}\n'.format(
-                    self.dataset,
-                    self.get_subject(),
-                    self.get_meg_ext(),
-                    self.get_task()
-                )
-
-    @staticmethod
-    @abstractmethod
-    def matches_pattern(filename):
-        raise NotImplementedError
-
-    @staticmethod
-    @abstractmethod
-    def name():
-        raise NotImplementedError
-
-
-class CDFBidsResource(BidsResource):
-
-    @staticmethod
-    def name():
-        return 'CDFBidsResource'
-
-    @staticmethod
-    def matches_pattern(filename):
-        basename = os.path.basename(filename)
-        parent_dir = os.path.basename(os.path.dirname(filename))
-        return os.path.isdir(filename) and \
-               basename.startswith('sub') and \
-               '_task-' in basename and \
-               basename.endswith('_meg.ds') and \
-               parent_dir == 'meg'
-
-
-class FIFBidsResource(BidsResource):
-
-    @staticmethod
-    def name():
-        return 'FIFBidsResource'
-
-    @staticmethod
-    def matches_pattern(filename):
-        basename = os.path.basename(filename)
-        parent_dir = os.path.basename(os.path.dirname(filename))
-        print(basename, '-----', parent_dir)
-        return basename.startswith('sub-') and \
-               '_task-' in basename and \
-               basename.endswith('_meg.fif') and \
-               parent_dir == 'meg'
-
-
-class GLABidsResource(BidsResource):
-
-    @staticmethod
-    def name():
-        return 'GLABidsResource'
-
-    @staticmethod
-    def matches_pattern(filename):
-        basename = os.path.basename(filename)
-        parent_dir = os.path.basename(os.path.dirname(filename))
-        return os.path.isdir(filename) and \
-               basename.startswith('sub-') and \
-               '_task-' in basename and \
-               basename.endswith('_meg') and \
-               parent_dir == 'meg'
+                    self.save_dataset(data_dict, [])
 
 
 class BidsSidecarJSON(BidsResource):
@@ -515,73 +352,6 @@ class BidsSidecarJSON(BidsResource):
                '_task-' in basename and \
                basename.endswith('_meg.json') and \
                parent_dir == 'meg'
-
-
-class BidsDataset:
-
-    def __init__(self, known_dataset_types=None):
-
-        self.sidecar_files = []
-        self.dataset_resources = []
-        self.dataset_info = {}
-        self.root_dir = ''
-        self.root_path = ''
-        self.known_dataset_types = [CDFBidsResource, FIFBidsResource,
-                                    GLABidsResource, BidsSidecarJSON]
-        if known_dataset_types is not None:
-            self.known_dataset_types = known_dataset_types
-
-    def get_resources(self):
-        return self.dataset_resources
-
-    def __repr__(self):
-        # return str(self.get_resources())
-        return str(self.__dict__)
-
-    def description(self):
-        description_text = 'Bids Dataset\nHas {} MEG dataset(s).\n'.format(
-            len(self.dataset_resources)
-        )
-        description_text += 'Root folder is {}\n'.format(self.root_dir)
-        description_text += 'Root path is {}\n'.format(self.root_path)
-        description_text += 'Resources: {}'.format(self.get_resource_descriptions())
-
-        return description_text
-
-    def get_resource_descriptions(self):
-        description = ''
-        for r in self.get_resources():
-            description += str(r.get_resource_description()) + '\n'
-
-        description += 'Sidecar files:\n'
-        for s in self.sidecar_files:
-            description += str(s) + '\n'
-
-        return description
-
-    def is_inside_dataset(self, path, resource_type):
-        # print('Checking {} is in a resource of type {}'.format(path, resource_type.name()))
-        if os.path.dirname(path) == path:
-            return False
-        else:
-            if resource_type.matches_pattern(path):
-                return True
-            else:
-                return self.is_inside_dataset(os.path.dirname(path), resource_type)
-
-    def record_if_dataset(self, path):
-        is_inside_dataset = False
-        for t in self.known_dataset_types:
-            if t.matches_pattern(path):
-                print('Match {}, {}'.format(t, path))
-                self.dataset_resources.append(t(path))
-                return
-            is_inside_dataset = self.is_inside_dataset(path, t)
-            if is_inside_dataset:
-                print('is_inside_dataset', is_inside_dataset)
-                break
-        if not is_inside_dataset and os.path.isfile(path):
-            self.sidecar_files.append(path)
 
 
 if __name__ == '__main__':
@@ -623,6 +393,7 @@ if __name__ == '__main__':
             dir_struc['dataset_info'] = cbi.dataset_info
 
             bids_dataset.dataset_info = cbi.dataset_info
+            bids_dataset.dir_struc = dir_struc
             bids_dataset.root_dir = ds
             bids_dataset.root_path = dir_path
 
@@ -685,21 +456,24 @@ if __name__ == '__main__':
             ])
         dataset_name = cbi.save_dataset(new_info, tags)
         if dataset_name:
-            for sf in bd.sidecar_files:
-                cbi.add_resource(
-                    resource_name=os.path.basename(sf),
-                    dataset_name=dataset_name,
-                    filepath=sf,
-                    url='',
-                    mimetype='application/*'
-                )
+            for rs in bd.get_resources_sidecars():
+                for key, filepath in rs.items():
+                    cbi.add_resource(
+                        resource_name=os.path.basename(filepath),
+                        dataset_name=dataset_name,
+                        filepath=filepath,
+                        url='',
+                        mimetype='application/*'
+                    )
 
             for r in bd.dataset_resources:
                 assert isinstance(r, BidsResource)
+                resource_filepath = r.get_resource_definition_file()
+
                 cbi.add_resource(
                     resource_name=r.basename(),
                     dataset_name=dataset_name,
-                    filepath=r.dataset,
+                    filepath=resource_filepath,
                     url='',
                     mimetype=r.get_meg_ext()
                 )
