@@ -47,10 +47,9 @@ class CKANbidsImport:
 
 
     # extras is a dict, must have 'dataset_name'
-    def save_dataset(self, unclean_extras, tags):
+    def save_dataset(self, unclean_extras, tags, description=''):
         extras = []
         tags_cleaned = {}
-        description = ''
 
         for key, value in unclean_extras.items():
             # print('converting', key, convert(key), value)
@@ -61,10 +60,10 @@ class CKANbidsImport:
                 })
                 tags_cleaned[self.convert(key)] = value
 
-        for description_key in settings.description_keys:
-            if description_key in tags_cleaned:
-                description += '\n\n' + tags_cleaned[description_key]
-        description = description.strip()
+        # for description_key in settings.description_keys:
+        #     if description_key in tags_cleaned:
+        #         description += '\n\n {} : {}'.format(description_key, tags_cleaned[description_key])
+        # description = description.strip()
 
         dataset_name = re.sub(
                 r'[^\x61-\x7A]|\x40|\x55|\x137', r'',
@@ -150,25 +149,53 @@ class CKANbidsImport:
                 # )
         return dataset_name
 
-    def add_resource(self, resource_name, dataset_name, filepath, url, mimetype):
-        data = {
-            "package_id": dataset_name,
-            # "url": url,
-            "name": resource_name,
-            # "format": "text/html"
-            "mimetype": mimetype
-        }
-        print('\n\nresource_create data', data, '\n\n')
+    def add_resource(self, resource_name, dataset_name, filepath, url, mimetype,
+                     type='datafile', extra_info=None):
 
-        response = requests.post(
-            settings.ckan_url + '/api/action/resource_create',
-            data=data,
-            headers={
-                "X-CKAN-API-Key": settings.ckan_api_key,
-                # 'content-type': 'multipart/form-data'
-            },
-            files=[('upload', open(filepath, 'rb'))]
-        )
+        include_file_upload = True
+        if include_file_upload:
+            # If file, the content is figured out by the requests module,
+            # and the data is passed as a dict
+            data = {
+                "package_id": dataset_name,
+                "url": 'file://{}'.format(filepath),
+                "name": resource_name,
+                "mimetype": mimetype,
+                "type": type,
+                "filepath": filepath,
+            }
+            if extra_info:
+                data.update(extra_info)
+            print('\n\nresource_create data', data, '\n\n')
+            response = requests.post(
+                settings.ckan_url + '/api/action/resource_create',
+                # data=json.dumps(data),
+                data=data,
+                headers={
+                    "X-CKAN-API-Key": settings.ckan_api_key,
+                    # 'content-type': 'multipart/form-data'
+                },
+                files=[('upload', open(filepath, 'rb'))]
+            )
+        else:
+            # If no file, the content-type is application/json,
+            # and data is json dumped to string
+            data = {
+                "package_id": dataset_name,
+                "url": 'file://{}'.format(filepath),
+                "name": resource_name,
+                "mimetype": mimetype,
+                "type": type
+            }
+            print('\n\nresource_create data', data, '\n\n')
+            response = requests.post(
+                settings.ckan_url + '/api/action/resource_create',
+                data=json.dumps(data),
+                headers={
+                    "X-CKAN-API-Key": settings.ckan_api_key,
+                    'content-type': 'application/json'
+                },
+            )
 
         print(response.status_code)
         print(response.reason)
@@ -436,10 +463,18 @@ if __name__ == '__main__':
         new_info['dataset_name'] = bd.dataset_resources[0].get_subject()
         print(new_info)
 
+        description = 'BIDS MEG Dataset for Subject {}. \n\n'.format(new_info['dataset_name'])
+        tasks = []
         tags = []
         for r in bd.dataset_resources:
             assert isinstance(r, BidsResource)
 
+            # for key, value in r.get_resource_description_dict().items():
+            #     if value:
+            #         description += '{} : {}<br>\n\n'.format(key, value)
+            rdd = r.get_resource_description_dict()
+            if 'Task' in rdd:
+                tasks.append(r.get_resource_description_dict()['Task'])
             tags.extend([
                 {
                     'name': r.get_subject(),
@@ -454,28 +489,40 @@ if __name__ == '__main__':
                     'vocabulary_id:': 'bids_meg_ext'
                 }
             ])
-        dataset_name = cbi.save_dataset(new_info, tags)
+        description += 'Tasks: ' + ', '.join(tasks)
+        dataset_name = cbi.save_dataset(new_info, tags, description=description)
         if dataset_name:
             for rs in bd.get_resources_sidecars():
                 for key, filepath in rs.items():
+                    position_within_dataset = bd.position_within_dataset(filepath)
+
                     cbi.add_resource(
                         resource_name=os.path.basename(filepath),
                         dataset_name=dataset_name,
                         filepath=filepath,
                         url='',
-                        mimetype='application/*'
+                        mimetype='application/*',
+                        extra_info={
+                            'resource_filepath': position_within_dataset
+                        }
                     )
 
             for r in bd.dataset_resources:
                 assert isinstance(r, BidsResource)
-                resource_filepath = r.get_resource_definition_file()
+                get_resource_definition_file = r.get_resource_definition_file()
+
+                position_within_dataset = bd.position_within_dataset(r.dataset)
 
                 cbi.add_resource(
                     resource_name=r.basename(),
                     dataset_name=dataset_name,
-                    filepath=resource_filepath,
+                    filepath=get_resource_definition_file,
                     url='',
-                    mimetype=r.get_meg_ext()
+                    mimetype=r.get_meg_ext(),
+                    type='BidsResource',
+                    extra_info={
+                        'resource_filepath': position_within_dataset
+                    }
                 )
 
         # cbi.parse_live_json('./json_live')

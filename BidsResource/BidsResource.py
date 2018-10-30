@@ -32,47 +32,62 @@ class BidsResource(metaclass=ABCMeta):
         for bit in bits:
             if 'task' in bit:
                 return bit.split('-')[1]
+        return None
 
     def get_session(self):
         bits = self.basename().split('_')
         for bit in bits:
             if 'ses' in bit:
                 return bit.split('-')[1]
+        return None
 
     def get_aquisition(self):
         bits = self.basename().split('_')
         for bit in bits:
             if 'acq' in bit:
                 return bit.split('-')[1]
+        return None
 
     def get_processed(self):
         bits = self.basename().split('_')
         for bit in bits:
             if 'proc' in bit:
                 return bit.split('-')[1]
+        return None
 
     def get_run(self):
         bits = self.basename().split('_')
         for bit in bits:
             if 'run' in bit:
                 return bit.split('-')[1]
+        return None
+
+    def get_resource_description_dict(self):
+        return {
+            'Basename': self.basename(),
+            'MEG ext': self.get_meg_ext(),
+            'Subject': self.get_subject(),
+            'Task': self.get_task(),
+            'Session': self.get_session(),
+            'Aquisition': self.get_aquisition(),
+            'Processed': self.get_processed(),
+            'Run': self.get_run()
+        }
 
     def get_resource_description(self):
-        return '{}\nSubject: {}\n' \
-               'Meg ext: {}\n' \
-               'Task: {}\n'.format(
-            self.dataset,
-            self.get_subject(),
-            self.get_meg_ext(),
-            self.get_task()
-        )
+        description = '\nResource description :\n'
+        for key, value in self.get_resource_description_dict().items():
+            if value:
+                description += '{} : {}\n'.format(key, value)
+        return description
+
 
     def get_resource_definition_file(self):
         output_file = os.path.join('./json', '{}.json'.format(self.folder_dict['name']))
 
         with open(output_file, 'w') as ds_struc_file:
             ds_struc_file.write(json.dumps(self.folder_dict, indent=4))
-        return output_file
+        return os.path.abspath(output_file)
 
     @staticmethod
     @abstractmethod

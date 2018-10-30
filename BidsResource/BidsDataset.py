@@ -79,3 +79,14 @@ class BidsDataset:
             all_sidecars.append(r.resource_sidecars)
         return all_sidecars
 
+    def position_within_dataset(self, resource_abs_path):
+        root_path_parent = os.path.dirname(
+            os.path.abspath(
+                self.root_path
+            )
+        )
+        print('resource_abs_path', resource_abs_path, 'root_path_parent', root_path_parent)
+
+        position_within_dataset_str = str(resource_abs_path).replace(str(root_path_parent), '')
+        print('position_within_dataset_str', position_within_dataset_str)
+        return position_within_dataset_str
