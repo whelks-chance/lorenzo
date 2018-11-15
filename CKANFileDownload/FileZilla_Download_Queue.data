@@ -1,0 +1,155 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<FileZilla3 platform="*nix" version="3.15.0.2">
+  <Queue>
+    <Server>
+      <File>
+        <DataType>1</DataType>
+        <RemoteFile>sub-cam001_task-resteyesopen_meg.fif.json</RemoteFile>
+        <RemotePath>1 0 4 home 4 ianh 15 PycharmProjects 7 lorenzo 4 json</RemotePath>
+        <Download>1</Download>
+        <LocalFile>ABCDE/sub-cam001/meg/sub-cam001_task-resteyesopen_meg.fif</LocalFile>
+        <Size>462</Size>
+      </File>
+      <File>
+        <DataType>1</DataType>
+        <RemoteFile>sub-cam001_task-scenes_meg.fif.json</RemoteFile>
+        <RemotePath>1 0 4 home 4 ianh 15 PycharmProjects 7 lorenzo 4 json</RemotePath>
+        <Download>1</Download>
+        <LocalFile>ABCDE/sub-cam001/meg/sub-cam001_task-scenes_meg.fif</LocalFile>
+        <Size>438</Size>
+      </File>
+      <File>
+        <DataType>1</DataType>
+        <RemoteFile>sub-cam001_task-resteyesclosed_meg.fif.json</RemoteFile>
+        <RemotePath>1 0 4 home 4 ianh 15 PycharmProjects 7 lorenzo 4 json</RemotePath>
+        <Download>1</Download>
+        <LocalFile>ABCDE/sub-cam001/meg/sub-cam001_task-resteyesclosed_meg.fif</LocalFile>
+        <Size>470</Size>
+      </File>
+      <File>
+        <DataType>1</DataType>
+        <RemoteFile>sub-cam001_task-visuomotor_meg.fif.json</RemoteFile>
+        <RemotePath>1 0 4 home 4 ianh 15 PycharmProjects 7 lorenzo 4 json</RemotePath>
+        <Download>1</Download>
+        <LocalFile>ABCDE/sub-cam001/meg/sub-cam001_task-visuomotor_meg.fif</LocalFile>
+        <Size>454</Size>
+      </File>
+      <File>
+        <DataType>1</DataType>
+        <RemoteFile>sub-gla001_task-resteyesopen_meg.json</RemoteFile>
+        <RemotePath>1 0 4 home 4 ianh 15 PycharmProjects 7 lorenzo 4 json</RemotePath>
+        <Download>1</Download>
+        <LocalFile>ABCDE/sub-gla001/sub-gla001/meg/sub-gla001_task-resteyesopen_meg</LocalFile>
+        <Size>2440</Size>
+      </File>
+      <File>
+        <DataType>1</DataType>
+        <RemoteFile>sub-cdf001_task-visuomotor_events.tsv</RemoteFile>
+        <RemotePath>1 0 4 home 4 ianh 15 PycharmProjects 7 lorenzo 4 data 10 sub-cdf001 10 sub-cdf001 3 meg</RemotePath>
+        <Download>1</Download>
+        <LocalFile>ABCDE/sub-cdf001/sub-cdf001/meg/sub-cdf001_task-visuomotor_events.tsv</LocalFile>
+        <Size>13933</Size>
+      </File>
+      <File>
+        <DataType>1</DataType>
+        <RemoteFile>sub-cdf001_task-visuomotor_events.tsv</RemoteFile>
+        <RemotePath>1 0 4 home 4 ianh 15 PycharmProjects 7 lorenzo 4 data 10 sub-cdf001 10 sub-cdf001 3 meg</RemotePath>
+        <Download>1</Download>
+        <LocalFile>ABCDE/sub-cdf001/sub-cdf001/meg/sub-cdf001_task-visuomotor_events.tsv</LocalFile>
+        <Size>13933</Size>
+      </File>
+      <File>
+        <DataType>1</DataType>
+        <RemoteFile>sub-cdf001_task-visuomotor_meg.json</RemoteFile>
+        <RemotePath>1 0 4 home 4 ianh 15 PycharmProjects 7 lorenzo 4 data 10 sub-cdf001 10 sub-cdf001 3 meg</RemotePath>
+        <Download>1</Download>
+        <LocalFile>ABCDE/sub-cdf001/sub-cdf001/meg/sub-cdf001_task-visuomotor_meg.json</LocalFile>
+        <Size>811</Size>
+      </File>
+      <File>
+        <DataType>1</DataType>
+        <RemoteFile>sub-cdf001_task-visuomotor_events.tsv</RemoteFile>
+        <RemotePath>1 0 4 home 4 ianh 15 PycharmProjects 7 lorenzo 4 data 10 sub-cdf001 10 sub-cdf001 3 meg</RemotePath>
+        <Download>1</Download>
+        <LocalFile>ABCDE/sub-cdf001/sub-cdf001/meg/sub-cdf001_task-visuomotor_events.tsv</LocalFile>
+        <Size>13933</Size>
+      </File>
+      <File>
+        <DataType>1</DataType>
+        <RemoteFile>sub-cdf001_task-visuomotor_channels.tsv</RemoteFile>
+        <RemotePath>1 0 4 home 4 ianh 15 PycharmProjects 7 lorenzo 4 data 10 sub-cdf001 10 sub-cdf001 3 meg</RemotePath>
+        <Download>1</Download>
+        <LocalFile>ABCDE/sub-cdf001/sub-cdf001/meg/sub-cdf001_task-visuomotor_channels.tsv</LocalFile>
+        <Size>7329</Size>
+      </File>
+      <File>
+        <DataType>1</DataType>
+        <RemoteFile>sub-cdf001_task-resteyesopen_channels.tsv</RemoteFile>
+        <RemotePath>1 0 4 home 4 ianh 15 PycharmProjects 7 lorenzo 4 data 10 sub-cdf001 10 sub-cdf001 3 meg</RemotePath>
+        <Download>1</Download>
+        <LocalFile>ABCDE/sub-cdf001/sub-cdf001/meg/sub-cdf001_task-resteyesopen_channels.tsv</LocalFile>
+        <Size>7329</Size>
+      </File>
+      <File>
+        <DataType>1</DataType>
+        <RemoteFile>sub-cdf001_task-resteyesopen_channels.tsv</RemoteFile>
+        <RemotePath>1 0 4 home 4 ianh 15 PycharmProjects 7 lorenzo 4 data 10 sub-cdf001 10 sub-cdf001 3 meg</RemotePath>
+        <Download>1</Download>
+        <LocalFile>ABCDE/sub-cdf001/sub-cdf001/meg/sub-cdf001_task-resteyesopen_channels.tsv</LocalFile>
+        <Size>7329</Size>
+      </File>
+      <File>
+        <DataType>1</DataType>
+        <RemoteFile>sub-cdf001_task-resteyesopen_events.tsv</RemoteFile>
+        <RemotePath>1 0 4 home 4 ianh 15 PycharmProjects 7 lorenzo 4 data 10 sub-cdf001 10 sub-cdf001 3 meg</RemotePath>
+        <Download>1</Download>
+        <LocalFile>ABCDE/sub-cdf001/sub-cdf001/meg/sub-cdf001_task-resteyesopen_events.tsv</LocalFile>
+        <Size>118</Size>
+      </File>
+      <File>
+        <DataType>1</DataType>
+        <RemoteFile>sub-cdf001_task-resteyesopen_meg.json</RemoteFile>
+        <RemotePath>1 0 4 home 4 ianh 15 PycharmProjects 7 lorenzo 4 data 10 sub-cdf001 10 sub-cdf001 3 meg</RemotePath>
+        <Download>1</Download>
+        <LocalFile>ABCDE/sub-cdf001/sub-cdf001/meg/sub-cdf001_task-resteyesopen_meg.json</LocalFile>
+        <Size>809</Size>
+      </File>
+      <File>
+        <DataType>1</DataType>
+        <RemoteFile>sub-cdf001_task-resteyesopen_events.tsv</RemoteFile>
+        <RemotePath>1 0 4 home 4 ianh 15 PycharmProjects 7 lorenzo 4 data 10 sub-cdf001 10 sub-cdf001 3 meg</RemotePath>
+        <Download>1</Download>
+        <LocalFile>ABCDE/sub-cdf001/sub-cdf001/meg/sub-cdf001_task-resteyesopen_events.tsv</LocalFile>
+        <Size>118</Size>
+      </File>
+      <File>
+        <DataType>1</DataType>
+        <RemoteFile>sub-cdf001_task-visuomotor_meg.ds.json</RemoteFile>
+        <RemotePath>1 0 4 home 4 ianh 15 PycharmProjects 7 lorenzo 4 json</RemotePath>
+        <Download>1</Download>
+        <LocalFile>ABCDE/sub-cdf001/sub-cdf001/meg/sub-cdf001_task-visuomotor_meg.ds</LocalFile>
+        <Size>15059</Size>
+      </File>
+      <File>
+        <DataType>1</DataType>
+        <RemoteFile>sub-cdf001_task-resteyesopen_meg.ds.json</RemoteFile>
+        <RemotePath>1 0 4 home 4 ianh 15 PycharmProjects 7 lorenzo 4 json</RemotePath>
+        <Download>1</Download>
+        <LocalFile>ABCDE/sub-cdf001/sub-cdf001/meg/sub-cdf001_task-resteyesopen_meg.ds</LocalFile>
+        <Size>15183</Size>
+      </File>
+      <PasvMode>MODE_DEFAULT</PasvMode>
+      <Name>New site</Name>
+      <Logontype>2</Logontype>
+      <EncodingType>Auto</EncodingType>
+      <Type>0</Type>
+      <TimezoneOffset>0</TimezoneOffset>
+      <Protocol>1</Protocol>
+      <MaximumMultipleConnections>0</MaximumMultipleConnections>
+      <BypassProxy>0</BypassProxy>
+      <Host>10.73.4.69</Host>
+      <User>BrokenUsername</User>
+      <Port>22</Port>
+    </Server>
+  </Queue>
+</FileZilla3>

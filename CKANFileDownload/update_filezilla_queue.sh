@@ -4,18 +4,18 @@
 function get_user_dir()
 {
     IN_PATH_DEFAULT=$HOME
-    read -p "Please enter folder path to save files to [$IN_PATH_DEFAULT]: " IN_PATH
+    read -p "Please enter the folder path to save files to [$IN_PATH_DEFAULT]: " IN_PATH
     REPLACE_WITH="${IN_PATH:-$IN_PATH_DEFAULT}"
 
     if [ ! -d ${REPLACE_WITH} ]; then
-        echo -e "Given folder location does not exist, please either create it or choose another location.\n"
+        echo -e "$IN_PATH does not exist, please either create it or choose another location.\n"
         get_user_dir
     fi
 }
 
-START_FILE="/home/ianh/PycharmProjects/ckanpackager_service/ckanpackager/ckanpackager/utils/include_in_zipfile/FileZilla_Download_Queue.xml"
+START_FILE="FileZilla_Download_Queue.data"
 
-INPUT_FILE="/home/ianh/PycharmProjects/lorenzo/CKANFileDownload/FileZilla_Download_Queue-copy.xml"
+INPUT_FILE="FileZilla_Download_Queue.xml"
 
 cp ${START_FILE} $INPUT_FILE
 
