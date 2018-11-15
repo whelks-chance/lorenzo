@@ -11,12 +11,12 @@ echo "Looking for input file : $input"
 $inputFileExists = Test-Path $input
 if (-not $inputFileExists) {
   # echo "$input does not exist"
-  echo -e "Input data file not found! Please run this file from the unzipped folder downloaded from the Bids website.\n\n"
+  echo "Input data file not found! Please run this file from the unzipped folder downloaded from the Bids website.`n`n"
   break
 } else {
-  echo "Building Filezilla download queue file.\n\n"
+  echo "Building Filezilla download queue file.`n`n"
 }
-ß
+
 # Get the user's Documents directory as the default destination
 $documentFolderPath = [Environment]::GetFolderPath('MyDocuments')
 
@@ -29,14 +29,13 @@ do {
   }
   $usersPreferredDestinationPathExists = Test-Path $usersPreferredDestinationPath
   if (-not $usersPreferredDestinationPathExists) {
-    echo "$usersPreferredDestinationPath does not exist, please either create it or choose another location.\n"
+    echo "$usersPreferredDestinationPath does not exist, please either create it or choose another location.`n`n"
 
   }
 } while (-not $usersPreferredDestinationPathExists)
 $replace = $usersPreferredDestinationPath
 
-echo "Building Filezilla download queue file.\n\n"
-
+echo "Building Filezilla download queue file.`n`n"
 
 # Read the content of the FileZilla XML Queue file
 $content = Get-Content $input
@@ -55,4 +54,5 @@ $content = $content -replace '\<\\', '</'
 Out-File -FilePath $output -InputObject $content
 
 echo "Filezilla file created"
-echo "To continue, run Filezilla, and select File -> Import and select the xml file in this folder.\n"
+echo "To continue, run Filezilla, and select File -> Import and select the xml file in this folder.`n`n"
+Read-Host -Prompt "Press enter to close this program."
